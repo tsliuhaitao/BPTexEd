@@ -21,8 +21,10 @@ Include "menu.bb"
 ; Declare globals
 Global window, textarea, menubar
 Global font_courier
-Global menu_file.Menu
 Global cur.Cursor
+
+Global menu_file.Menu, menu_edit.Menu, menu_format.Menu, menu_view.Menu
+Global menu_help.Menu
 
 ; Execute the main program
 Initialize
@@ -36,13 +38,18 @@ Function Initialize()
 	
 	window = CreateWindow( "TexEd", 20, 20, 300, 200, 0, 15 )
 
-	textarea = CreateTextArea( 0, 0, 200, 200, window, TEXTAREA_WORD_WRAP )
+	textarea = CreateTextArea( 0, 0, 200, 200, window, TEXTAREA_NO_WORD_WRAP )
 	font_courier = LoadFont( "Courier", 12 )
 	SetTextAreaFont textarea, font_courier
 	ResizeWindowGadgets
 
 	menubar = WindowMenu( window )
 	menu_file = Menu_Create( "File", menubar )
+	menu_edit = Menu_Create( "Edit", menubar )
+	menu_format = Menu_Create( "Format", menubar )
+	menu_view = Menu_Create( "View", menubar )
+	menu_help = Menu_Create( "Help", menubar )
+
 	UpdateWindowMenu window
 
 	cur = Cursor_Create( textarea )
@@ -66,7 +73,6 @@ Function MainLoop()
 				SetStatusText window,"Window Sized" ; DEBUG
 				ResizeWindowGadgets
 			Case EVENT_WINDOW_CLOSE
-				Notify "Received WindowClose Event" ; DEBUG
 				Return
 			Case $804
 				SetStatusText window,"WindowActivate" ; DEBUG

@@ -9,6 +9,7 @@ Const EVENT_WINDOW_RESIZED = $802
 Const EVENT_WINDOW_CLOSE = $803
 
 ; Used with CreateTextArea
+Const TEXTAREA_NO_WORD_WRAP = 0
 Const TEXTAREA_WORD_WRAP = 1
 
 ; Used with TextAreaCursor
