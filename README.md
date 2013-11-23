@@ -15,8 +15,8 @@ Since BlitzPlus is a Windows-only program you'll need a good copy of Windows.
 Go figure.
 
 You'll also need BlitzPlus, which you can get here:
-`http://www.blitzbasic.com/Products/blitzplus.php`. I don't know if you can
-compile this with the demo.
+`http://www.blitzbasic.com/Products/blitzplus.php`.
+I don't know if you can compile this with the demo.
 
 Compiling
 ---------
@@ -32,7 +32,7 @@ path) with:
 blitzcc -c -o bptexed.exe bptexed.bb
 ```
 
-This will generate bptexed.exe which you can then run.
+This will generate `bptexed.exe` which you can then run.
 
 Coding Style
 ------------
