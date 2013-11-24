@@ -23,7 +23,15 @@ Global window, textarea, menubar
 Global font_courier
 Global cur.Cursor
 
-Global menu_file.Menu, menu_edit.Menu, menu_format.Menu, menu_view.Menu
+; FILE menu
+Global menu_file.Menu
+Global item_new.Menu
+Global item_open.Menu
+Global item_save.Menu
+Global item_save_as.Menu
+Global item_exit.Menu
+
+Global menu_edit.Menu, menu_format.Menu, menu_view.Menu
 Global menu_help.Menu
 
 ; Execute the main program
@@ -44,7 +52,14 @@ Function Initialize()
 	ResizeWindowGadgets
 
 	menubar = WindowMenu( window )
+	
 	menu_file = Menu_Create( "File", menubar )
+	item_new = Menu_Create( "New", menu_file\item )
+	item_open = Menu_Create( "Open...", menu_file\item )
+	item_save = Menu_Create( "Save", menu_file\item )
+	item_save_as = Menu_Create( "Save As...", menu_file\item )
+	item_exit = Menu_Create( "Exit", menu_file\item )
+	
 	menu_edit = Menu_Create( "Edit", menubar )
 	menu_format = Menu_Create( "Format", menubar )
 	menu_view = Menu_Create( "View", menubar )
@@ -78,13 +93,24 @@ Function MainLoop()
 				SetStatusText window,"WindowActivate" ; DEBUG
 			Case $805
 				SetStatusText window,"WindowDeActivate" ; DEBUG
+			Case EVENT_MENU
+				MenuEvent EventData%()
 		End Select
 	Forever
 End Function
 
 ; Clean up all allocated resources.
 Function CleanUp()
+	Menu_Free item_new
+	Menu_Free item_open
+	Menu_Free item_save
+	Menu_Free item_save_as
+	Menu_Free item_exit
 	Menu_Free menu_file
+	Menu_Free menu_edit
+	Menu_Free menu_format
+	Menu_Free menu_view
+	Menu_Free menu_help
 	FreeGadget textarea
 	FreeGadget window
 	FreeFont font_courier
@@ -96,4 +122,17 @@ Function ResizeWindowGadgets()
 	Local w% = ClientWidth( window )
 	Local h% = ClientHeight( window )
 	SetGadgetShape textarea, 0, 0, w%, h%
+End Function
+
+; dsfasdf
+Function MenuEvent( eid% )
+	Select eid%
+		Case item_new\id%
+			If Len%( TextAreaText$( textarea ) ) <> 0
+				Local res = Proceed( "Do you want to save first?" )
+			Else
+				SetTextAreaText textarea, ""
+			EndIf
+
+	End Select
 End Function
